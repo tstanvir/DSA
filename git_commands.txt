@@ -21,3 +21,7 @@
 21. git mv <file name> <file name> : rename the first file name to the 2nd file name
 22. git mv <file name> <folder name>/<file name> : to move file to a folder as same label or renamed.
 23. git commit -am "message" : does the same as previous commit command but don't go through the staging area. 
+24. git checkout -- <filename> : takes the file from the repo and makes it working copy..basically undoing the changes.
+25. git reset HEAD <file name> : to unstage a file 
+26. git checkout <commit num> -- <file name> : to go to the specific version of that file
+27. git log : to find out the commit num
