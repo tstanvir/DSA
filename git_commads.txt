@@ -12,4 +12,5 @@
 12. git commit -m "any message" : to tell the git to save or commit the change in that time leveled as the message.
 13. git log --author="name" : to see the commits of specific users.
 14. git status : shows what is there to commit
-15.
+15.git log : shows your commit history
+16. 
