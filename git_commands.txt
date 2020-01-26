@@ -17,4 +17,6 @@
 17. if (END) shown: press 'Q'
 18. commit stage: working area>staging area>repository
 19. what if you want to compare the staging area with the repository: git diff --staged
-20.git rm <file name> : removes the file from the repo as well as working copy 
+20.git rm <file name> : removes the file from the repo as well as working copy
+21. git mv <file name> <file name> : rename the first file name to the 2nd file name
+ 
