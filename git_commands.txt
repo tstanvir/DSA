@@ -25,3 +25,6 @@
 25. git reset HEAD <file name> : to unstage a file 
 26. git checkout <commit num> -- <file name> : to go to the specific version of that file
 27. git log : to find out the commit num
+28. git remote add <nickname> <public repo address> : to connect a public repo on github and nicknamed it.
+29. git remote : shows you the nickname for the repo
+30. git push -u <nickname> master : uploads all the file from the local repo to online repo
