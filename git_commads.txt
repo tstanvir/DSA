@@ -8,4 +8,6 @@
 8. cd .. : to backward one folder in the path.
 9. ls : to see the contents of the folder.
 10. ls -la : to see the hidden files in that folder
-11. 
+11. git add . : to save all the changes
+12. git commit -m "any message" : to tell the git to save or commit the change in that time leveled as the message.
+13. git log --author="name" : to see the commits of specific users.
