@@ -13,4 +13,5 @@
 13. git log --author="name" : to see the commits of specific users.
 14. git status : shows what is there to commit
 15.git log : shows your commit history
-16. 
+16. git diff : shows you the difference between the actual file and the previous file
+17. 
