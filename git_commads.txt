@@ -1,0 +1,11 @@
+1. git --version : to know the version of the git.
+2. git config --global user.name "something" : to set the user name for your account. (you can set the eamil in simillar fashion)
+3. git config --list : to see all the settings
+4. clear : to just clear the screen.
+5. git config user.email : to see the email of your git account
+6. git help : to learn about the comands
+7. pwd : for the current directory/folder.
+8. cd .. : to backward one folder in the path.
+9. ls : to see the contents of the folder.
+10. ls -la : to see the hidden files in that folder
+11. 
