@@ -14,4 +14,6 @@
 14. git status : shows what is there to commit
 15.git log : shows your commit history
 16. git diff : shows you the difference between the actual file and the previous file
-17. 
+17. if (END) shown: press 'Q'
+18. commit stage: working area>staging area>repository
+19. what if you want to compare the staging area with the repository: git diff --staged
