@@ -29,6 +29,19 @@ int MinQ(int qlow,int qhigh,int nodelow,int nodehigh,int pos){
 
 
 }
+void update(int *arr,int nodel,int noder,int pos,int x,int val){
+    if(nodel==noder and x==nodel){
+            arr[x]=val;
+            segT[pos]=val;
+    }
+    //printf("1\n");
+    else{
+    int mid=(nodel+noder)/2;
+    if(nodel<=x && x<=mid) update(arr,nodel,mid,2*pos+1,x,val);
+    else update(arr,mid+1,noder,2*pos+2,x,val);
+    segT[pos]=min(segT[2*pos+1],segT[2*pos+2]);
+    }
+}
 int main()
 {
     int arr[4]={4,-1,8,0};//for size n,the number of node needed for segment tree is (2*n)-1 if n is a power of 2.else 2*(next power of two)-1
