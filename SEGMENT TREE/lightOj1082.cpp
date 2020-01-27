@@ -17,11 +17,12 @@ void build(int arr[],int low,int high,int pos){
     }
 }
 int MinQ(int ql,int qr,int nodel,int noder,int pos){
-    if(qr<nodel || ql>noder) return numeric_limits<int>::max(); //no overlap
     if(ql<=nodel && qr>=noder){
         return segT[pos];
         //total overlap
     }
+    if(qr<nodel || ql>noder) return numeric_limits<int>::max(); //no overlap
+
     //partial overlap
     int mid=(nodel+noder)/2;
     return min(MinQ(ql,qr,nodel,mid,2*pos+1),MinQ(ql,qr,mid+1,noder,2*pos+2));
