@@ -1,0 +1,6 @@
+		Build		query
+Brute force-O(1)		O(n)
+DP-	    O(n^2)		O(1)
+Segment Tree-O(n)		O(logn)
+Sparse Table-O(nlogn)		O(1)
+Longest Common Ancestor-O(N)	O(1)
