@@ -1,0 +1,9 @@
+#Sparse table can be applied if and only if:
+
+1.Arr is immutable (i.e. queries do not change it)(update can not be possible)
+2.Function F is associative: F(a, b, c) = F(F(a, b), c) = F(a, F(b, c)).
+
+#it can query mostly in O(logn) but it can find RMQ in O(1).
+#It takes o(nlogn) to build and O(1) for RMQ
+#column size can be equal to floor(log(n))+1 , where n is the size of the array
+#row size can be equal to n,where n is the size of the array

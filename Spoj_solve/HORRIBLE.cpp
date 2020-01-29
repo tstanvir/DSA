@@ -2,11 +2,6 @@
 this problem is solved by using segment tree with lazy prop.
 */
 
-
-
-
-
-
 #include<bits/stdc++.h>
 using namespace std;
 
