@@ -41,8 +41,9 @@ void prepo(){
 }
 int minQ(int l,int r){
     int tot=r-l+1;
-    int k=logg(tot);
-    return min(arr[sparse[l][k]],arr[sparse[l+(tot-po(2,k))][k]]);
+    int k=log2(tot);
+    int slide=l+(tot-pow(2,k));
+    return min(arr[sparse[l][k]],arr[sparse[slide][k]]);
     /*
     dividing the range into to halves: 1st--> starting from l to next 2^k elements
                                        2nd--> starting from l+(number of the rest of the elements that was outside the 1st range) to l
