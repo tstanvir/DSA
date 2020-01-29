@@ -17,6 +17,7 @@ void build(int arr[],int low,int high,int pos){
     }
 }
 int MinQ(int ql,int qr,int nodel,int noder,int pos){
+    if(nodel>noder) return numeric_limits<int>::max();
     if(ql<=nodel && qr>=noder){
         return segT[pos];
         //total overlap
