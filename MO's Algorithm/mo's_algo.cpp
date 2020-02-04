@@ -6,6 +6,7 @@ int k;
 ll sum=0;
 ll arr[maxx];
 ll ans[maxx];
+ll cnt[maxx*10];
 struct query{
     int index,l,r;
     bool operator < (const query &other) const{
