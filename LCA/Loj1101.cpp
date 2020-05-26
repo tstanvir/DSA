@@ -171,11 +171,12 @@ void lca_build(){
         maxie[i][0]=max(mm[{i,pred[i]}],mm[{pred[i],i}]);
     }
     //cout<<"heda4"<<endl;
-    for(int j=1;1<<j<=n;j++){
+    for(int j=1;1<<j<=n;j++){ //j goes up to log2(n)
         rep1(i,1,n){
             //cout<<"heda "<<i<<" "<<j<<endl;
             if(sparT[i][j-1]!=-1){
-                sparT[i][j]=sparT[sparT[i][j-1]][j-1];
+                sparT[i][j]=sparT[sparT[i][j-1]][j-1]; //jth ancestor of the ith node is equal to (j-1)th of the (j-1)th ancestor;
+                // if a is ancestor of b and b is ancestor of c,then here we assign c's ancestor as the a.
                 maxie[i][j]=max(maxie[i][j-1],maxie[sparT[i][j-1]][j-1]);
             }
         }
@@ -187,14 +188,13 @@ int lca_qu(int a,int b){
     if(height[a]<height[b]) swap(a,b);
     Log =1;
     while(1){
-        int next=Log+1;
-        if(1<<next>height[a]) break;
+        if(1<<(Log+1)>height[a]) break;
         Log++;
     }
    // cout<<"log: "<<log<<endl;
    ll hd=height[a]-height[b];
     irep(i,Log,0){
-        if(hd<1<<i) continue;
+        if(hd<(1<<i)) continue;
         hd-=(1<<i);
         a=sparT[a][i];
     }

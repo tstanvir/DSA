@@ -6,6 +6,8 @@
 6. git help : to learn about the comands
 7. pwd : for the current directory/folder.
 8. cd .. : to backward one folder in the path.
+8.1. cd ~ : takes you to the home directory of your home.
+8.2. cd 'name of the folder' : take you to the folder you wanna go.
 9. ls : to see the contents of the folder.
 10. ls -la : to see the hidden files in that folder
 11. git add . : to save all the changes
