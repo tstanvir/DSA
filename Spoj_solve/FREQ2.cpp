@@ -37,23 +37,18 @@ void rmove(int x){
 }
 int main()
 {
-    int n,q;
+        int n,q;
         //st.clear();
 
         //mm.clear();
-        while(scanf("%d",&n)!=EOF){
-        	  maxi=0;
-        memset(arr,0,sizeof(arr));
-        memset(ans,0,sizeof(ans));
-        memset(cnt,0,sizeof(ans));
-        memset(freq,0,sizeof(freq));
+        scanf("%d%d",&n,&q);
         k=sqrt(n);
-        scanf("%d",&q);
+        //scanf("%d",&q);
         for(int i=0;i<n;i++) scanf("%d",&arr[i]);
         for(int i=0;i< q;i++){
             int l,r;
             scanf("%d%d",&l,&r);
-            l--,r--;
+            //l--,r--;
             Query[i].l=l;
             Query[i].r=r;
             Query[i].index=i;
@@ -73,7 +68,6 @@ int main()
         }
         for(int i=0;i<q;i++){
             printf("%d\n",ans[i]);
-        }
         }
     return 0;
 }
