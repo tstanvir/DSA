@@ -34,7 +34,7 @@ const long long MOD = 1000000007;
 #define sz(a) int(a.size())
 #define ff first
 #define ss second
-#define endl "\n"
+//#define endl "\n"
 #define forch(it,s) for(auto it:s)
 #define each(it,s) for(auto it = s.begin(); it != s.end(); ++it)
 #define rep(i,a) for(int i=0; i<a;i++)
@@ -112,10 +112,7 @@ ll XNOR(ll num1, ll num2)
     return num1 ^ num2;
 }
 void solve(){
-    int a,b;
-    cin>>a>>b;
-    int xnor=XNOR(a,b);
-    cout<<xnor<<endl;
+
 }
 
 signed main()

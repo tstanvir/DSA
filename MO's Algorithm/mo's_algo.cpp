@@ -36,6 +36,7 @@ int main()
         int l,r;
         cin>>l>>r;
         l--,r--;
+       // Query[i]={i,l,r};
         Query[i].l=l;
         Query[i].r=r;
         Query[i].index=i;
