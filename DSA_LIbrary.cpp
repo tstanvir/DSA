@@ -106,6 +106,41 @@ ll lg2(ll x){
     return res;
 }
 
+//points template
+struct point
+{
+    double x, y;
+    point() {}  //constructor
+    point(double x, double y)
+    {
+        this->x = x;
+        this->y = y;
+    }
+    double dist(point p) //euclidean distance
+    {
+        p.x -= x, p.y -= y;
+        return sqrt(p.x*p.x + p.y*p.y);
+    }
+    void input()
+    {
+        double xx, yy;
+        cin >> xx >> yy;
+        x = xx;
+        y = yy;
+    }
+    void leftmid(point p, point q) //leftmid point of the distance between these two point p, q
+    {
+        x = p.x + (q.x-p.x)/3.0;
+        y = p.y + (q.y-p.y)/3.0;
+    }
+    void rightmid(point p, point q)//rightmid point of the distance between these two point p,q;
+    {
+        x = q.x - (q.x-p.x)/3.0;
+        y = q.y - (q.y-p.y)/3.0;
+    }
+ 
+} a, b, c, d;
+
 
 
 
