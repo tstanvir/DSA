@@ -1,8 +1,8 @@
 [1087 - Diablo](http://lightoj.com/volume_showproblem.php?problem=1087)
 
 Starting with an example to understand the problem better.Suppose, we have n people standing linearly and everyone has assigned with an id:
-6 5 3 2 1 --->id
-\s\s1 2 3 4 5 --->there relative position
+6 5 3 2 1 --->id\n
+1 2 3 4 5 --->there relative position
 we will have two queries:
 
 for type 1:
