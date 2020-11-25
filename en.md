@@ -2,7 +2,7 @@
 
 Starting with an example to understand the problem better.Suppose, we have n people standing linearly and everyone has assigned with an id:
 6 5 3 2 1 --->id
-1 2 3 4 5 --->there relative position
+\s\s1 2 3 4 5 --->there relative position
 we will have two queries:
 
 for type 1:
