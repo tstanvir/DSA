@@ -12,7 +12,7 @@ people with id 20 will stand next to the last people standing already.the relati
 1 2 3 4 5 6  --->there relative position  
 **for type 2:**   
 c 3  
-people who is standing in the 3rd position from the left will be called out and for this type of query ,you need to print the id of that people.here,the ans is 3 and   the relative order of the list will be:  
+people who is standing in the 3rd position from the left will be called out and for this type of query ,you need to print the id of that people.here,the ans is 3 and   after this query the relative order of the list will be:  
 6 5 2 1 20 --->id  
 1 2 3 4 5  --->there relative position  
 
