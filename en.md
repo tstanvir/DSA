@@ -1,15 +1,15 @@
 [1087 - Diablo](http://lightoj.com/volume_showproblem.php?problem=1087)
 
 Starting with an example to understand the problem better.Suppose, we have n people standing linearly and everyone has assigned with an id:
-6 5 3 2 1 --->id\s\s
-1 2 3 4 5 --->there relative position\s\s
-we will have two queries:\s\s
+6 5 3 2 1 --->id
+1 2 3 4 5 --->there relative position
+we will have two queries:
 
-for type 1:\s\s
-a 20\s\s
-people with id 20 will stand next to the last people standing already.the relative order of the list will be:\s\s
-6 5 3 2 1 20 --->id\s\s
-1 2 3 4 5 6  --->there relative position\s\s
+for type 1:
+a 20
+people with id 20 will stand next to the last people standing already.the relative order of the list will be:
+6 5 3 2 1 20 --->id
+1 2 3 4 5 6  --->there relative position
 
 for type 2:\s\s
 c 3\s\s
