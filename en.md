@@ -1,63 +1,58 @@
 [1087 - Diablo](http://lightoj.com/volume_showproblem.php?problem=1087)
 
-Starting with an example to understand the problem better.Suppose, we have n people standing linearly and everyone has assigned with an id:
-6 5 3 2 1 --->id
-1 2 3 4 5 --->there relative position
-we will have two queries:
+Starting with an example to understand the problem better.Suppose, we have n people standing linearly and everyone has assigned with an id:\s
+6 5 3 2 1 --->id\s
+1 2 3 4 5 --->there relative position\s
+we will have two queries:\s
 
-for type 1:
-a 20
-people with id 20 will stand next to the last people standing already.the relative order of the list will be:
-6 5 3 2 1 20 --->id
-1 2 3 4 5 6  --->there relative position
+for type 1:\s
+a 20\s
+people with id 20 will stand next to the last people standing already.the relative order of the list will be:\s
+6 5 3 2 1 20 --->id\s
+1 2 3 4 5 6  --->there relative position\s
 
-for type 2:
-c 3
-people who is standing in the 3rd position from the left will be called out and for this type of query ,you need to print the id of that people.here,the ans is 3 and the relative order of the list will be:
-6 5 2 1 20 --->id
-1 2 3 4 5  --->there relative position
+for type 2:\s
+c 3\s
+people who is standing in the 3rd position from the left will be called out and for this type of query ,you need to print the id of that people.here,the ans is 3 and\s the relative order of the list will be:\s
+6 5 2 1 20 --->id\s
+1 2 3 4 5  --->there relative position\s
 
-**observation 1:**
-number of q could be at most 50000 and initial number of people could be 100000. So for 1st type of query,we can observe that overall there could be at most 150000 people 
-at a time.
-observation 2:
-relative position of every people is the number of people standing right before him/her + 1.
+**observation 1:**\s
+number of q could be at most 50000 and initial number of people could be 100000. So for 1st type of query,we can observe that overall there could be at most 150000\s people at a time.\s
+observation 2:\s
+relative position of every people is the number of people standing right before him/her + 1.\s
 
-**Explanation: **
-lets say,people standing in the array means his/her positional value is 1 and people called out means his/her positional value in that list is 0
-in our example,replacing with the value of the people ,initial array will look like,
-1 1 1 1 1 
-1 2 3 4 5
+**Explanation: **\s
+lets say,people standing in the array means his/her positional value is 1 and people called out means his/her positional value in that list is 0 in our\s example,replacing with the value of the people ,initial array will look like,\s
+1 1 1 1 1 \s
+1 2 3 4 5\s
 
-after query type 1,array will look like
+after query type 1,array will look like\s
 
-1 1 1 1 1 1
-1 2 3 4 5 6
+1 1 1 1 1 1\s
+1 2 3 4 5 6\s
 
-after query type 2,array will look like
-1 1 0 1 1 1
-1 2 3 4 5 6
+after query type 2,array will look like\s
+1 1 0 1 1 1\s
+1 2 3 4 5 6\s
 
 
-now,if we are asked what is the relative position of the people standing 5th position?
-ans will be 4. how can we calculate it?
-well, the prefix ends in 5th position has the sum 4,that is how,we can find the relative position of any people standing anywhere.
-the prefix sum array will look like,
-1 2 2 3 4 5
-1 2 3 4 5 6
+now,if we are asked what is the relative position of the people standing 5th position?\s
+ans will be 4. how can we calculate it?\s
+well, the prefix ends in 5th position has the sum 4,that is how,we can find the relative position of any people standing anywhere.\s
+the prefix sum array will look like,\s
+1 2 2 3 4 5\s
+1 2 3 4 5 6\s
 
-the actual problem will give you the relative position of a people and you need to output the id of that people who has the relative position the problem
-asked for and of course the left most occurrences of that relative position is the ans.
+the actual problem will give you the relative position of a people and you need to output the id of that people who has the relative position the problem\s
+asked for and of course the left most occurrences of that relative position is the ans.\s
 
-So,for prefix sum query and update we can use any range query data structure such as segment tree,Binary Indexed tree.
-As,prefix sum array is a monotonic array,we can binary search for the leftmost occurrence of the relative position the problem will ask for. 
+So,for prefix sum query and update we can use any range query data structure such as segment tree,Binary Indexed tree.\s
+As,prefix sum array is a monotonic array,we can binary search for the leftmost occurrence of the relative position the problem will ask for. \s
 
-**Note: use fast I/O :3**
+**Note: use fast I/O :3**\s
+**Code: C++:**\s
 
-----------
-
-
-**Code: C++:**
 	const int maxx=150005;
 	int BIT[maxx];
 	void update(int pos,int val){
@@ -79,14 +74,14 @@ As,prefix sum array is a monotonic array,we can binary search for the leftmost o
 	    int n,q;
 	    scanf("%d%d",&n,&q);
 	    vector<int> vec(maxx);
-	    rep1(i,1,n){
+	    for(int i=1;i<=n;i++){
 	        scanf("%d",&vec[i]);
 	        update(i,1);
 	    }
 	    getchar();
 		int en=n;
 	
-	    rep(i,q){
+	    for(int i=0;i<q;i++){
 	
 	        char ch;
 	        ch=getchar();
