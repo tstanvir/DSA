@@ -19,18 +19,16 @@ people who is standing in the 3rd position from the left will be called out and 
 
 **observation 1:**  
 number of q could be at most 50000 and initial number of people could be 100000. So for 1st type of query,we can observe that overall there could be at most 150000   people at a time.  
-**observation 2:  **
+**observation 2:**
 relative position of every people is the number of people standing right before him/her + 1.  
-**Explanation: **  
+**Explanation:**  
 lets say,people standing in the array means his/her positional value is 1 and people called out means his/her positional value in that list is 0 in our  example,replacing with the value of the people ,initial array will look like,  
 1 1 1 1 1   
 1 2 3 4 5  
 
 after query type 1,array will look like  
-
 1 1 1 1 1 1  
 1 2 3 4 5 6  
-
 after query type 2,array will look like  
 1 1 0 1 1 1  
 1 2 3 4 5 6  
