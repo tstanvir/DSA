@@ -48,8 +48,16 @@ So,for prefix sum query and update we can use any range query data structure suc
 As,prefix sum array is a monotonic array,we can binary search for the leftmost occurrence of the relative position the problem will ask for.  
 
 **Note: use fast I/O :3**  
-**Code: C++:**  
+If you are still stuck with this problem, check the codes below:  
 
+### C++
+-----
+```cpp  
+
+	//Author: Tanvir Hussain
+	//ICE,NSTU
+	#include<bits/stdc++.h>
+	using namespace std;
 	const int maxx=150005;
 	int BIT[maxx];
 	void update(int pos,int val){
@@ -76,10 +84,8 @@ As,prefix sum array is a monotonic array,we can binary search for the leftmost o
 	        update(i,1);
 	    }
 	    getchar();
-		int en=n;
-	
+	    int en=n;
 	    for(int i=0;i<q;i++){
-	
 	        char ch;
 	        ch=getchar();
 	        int x;
@@ -100,15 +106,24 @@ As,prefix sum array is a monotonic array,we can binary search for the leftmost o
 	            else {
 	                printf("%d\n",vec[ans]);
 	                update(ans,-1);
-	                vec[ans]=-1;	
+	                vec[ans]=-1;
 	            }
 	        }
 	        else {
 	            scanf("%d",&x);getchar();
 	            vec[++en]=x;
-	
 	            update(en,1);
 	        }
 	    }
-	
+	}
+	signed main()
+	{
+	    int t;
+	    scanf("%d",&t);
+	    int cs=0;
+	    while(t--){
+	        printf("Case %d:\n",++cs);
+	        solve();
+	    }
+	    return 0;
 	}

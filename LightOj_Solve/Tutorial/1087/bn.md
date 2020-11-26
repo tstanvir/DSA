@@ -46,8 +46,16 @@ c 3
 এই প্রেফিক্স এরে টা মেনটেইন করার জন্য আমরা [সেগমেন্ট ট্রী](https://cp-algorithms.com/data_structures/segment_tree.html) অথবা [বাইনারী ইন্ডেক্সট ট্রী](https://www.youtube.com/watch?v=CWDQJGaN1gY&t=447s) ব্যবহার করতে পারি। আর প্রেফিক্স সাম যেহেতু একটা মনোটনিক ফাংশন,আমরা এর উপর বাইনারী সার্চ চালিয়ে   সবচেয়ে বামের রিলেটিভ পজিশন বের করতে পারি এবং অই পজিশনে যে লোকটি দাঁড়িয়ে থাকবে তার আইডিই আমাদের প্রব্লেম এর এন্সার।  
 
 **Note: use fast I/O :3**  
-**Code: C++:**  
+If you are still stuck with this problem, check the codes below:  
 
+### C++
+-----
+```cpp  
+
+	//Author: Tanvir Hussain
+	//ICE,NSTU
+	#include<bits/stdc++.h>
+	using namespace std;
 	const int maxx=150005;
 	int BIT[maxx];
 	void update(int pos,int val){
@@ -74,10 +82,8 @@ c 3
 	        update(i,1);
 	    }
 	    getchar();
-		int en=n;
-	
+	    int en=n;
 	    for(int i=0;i<q;i++){
-	
 	        char ch;
 	        ch=getchar();
 	        int x;
@@ -98,15 +104,24 @@ c 3
 	            else {
 	                printf("%d\n",vec[ans]);
 	                update(ans,-1);
-	                vec[ans]=-1;	
+	                vec[ans]=-1;
 	            }
 	        }
 	        else {
 	            scanf("%d",&x);getchar();
 	            vec[++en]=x;
-	
 	            update(en,1);
 	        }
 	    }
-	
+	}
+	signed main()
+	{
+	    int t;
+	    scanf("%d",&t);
+	    int cs=0;
+	    while(t--){
+	        printf("Case %d:\n",++cs);
+	        solve();
+	    }
+	    return 0;
 	}
