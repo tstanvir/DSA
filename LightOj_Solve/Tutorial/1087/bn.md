@@ -51,77 +51,75 @@ If you are still stuck with this problem, check the codes below:
 ### C++
 -----
 ```cpp  
-
-	//Author: Tanvir Hussain
-	//ICE,NSTU
-	#include<bits/stdc++.h>
-	using namespace std;
-	const int maxx=150005;
-	int BIT[maxx];
-	void update(int pos,int val){
-	    while(pos<=maxx-1){
-	        BIT[pos]+=val;
-	        pos+=(pos&-pos);
-	    }
-	}
-	int query(int pos){
-	    int res=0;
-	    while(pos>0){
-	        res+=BIT[pos];
-	        pos-=(pos&-pos);
-	    }
-	    return res;
-	}
-	void solve(){
-	    memset(BIT, 0, sizeof(BIT));
-	    int n,q;
-	    scanf("%d%d",&n,&q);
-	    vector<int> vec(maxx);
-	    for(int i=1;i<=n;i++){
-	        scanf("%d",&vec[i]);
-	        update(i,1);
-	    }
-	    getchar();
-	    int en=n;
-	    for(int i=0;i<q;i++){
-	        char ch;
-	        ch=getchar();
-	        int x;
-	        if(ch=='c'){
-	            scanf("%d",&x); getchar();
-	            int lo=1,high=en;
-	            int ans=-1;
-	            while(lo<=high){
-	                int mid=(lo+(high-lo)/2);
-	                int xx=query(mid);
-	                if(xx>=x){
-	                    if(xx==x) ans=mid;
-	                    high=mid-1;
-	                }
-	                else lo=mid+1;
-	            }
-	            if(ans==-1) printf("none\n");
-	            else {
-	                printf("%d\n",vec[ans]);
-	                update(ans,-1);
-	                vec[ans]=-1;
-	            }
-	        }
-	        else {
-	            scanf("%d",&x);getchar();
-	            vec[++en]=x;
-	            update(en,1);
-	        }
-	    }
-	}
-	signed main()
-	{
-	    int t;
-	    scanf("%d",&t);
-	    int cs=0;
-	    while(t--){
-	        printf("Case %d:\n",++cs);
-	        solve();
-	    }
-	    return 0;
-	}
+#include<bits/stdc++.h>
+using namespace std;
+const int maxx=150005;
+int BIT[maxx];
+void update(int pos,int val){
+    while(pos<=maxx-1){
+        BIT[pos]+=val;
+        pos+=(pos&-pos);
+    }
+}
+int query(int pos){
+    int res=0;
+    while(pos>0){
+        res+=BIT[pos];
+        pos-=(pos&-pos);
+    }
+    return res;
+}
+void solve(){
+    memset(BIT, 0, sizeof(BIT));
+    int n,q;
+    scanf("%d%d",&n,&q);
+    vector<int> vec(maxx);
+    for(int i=1;i<=n;i++){
+        scanf("%d",&vec[i]);
+        update(i,1);
+    }
+    getchar();
+    int en=n;
+    for(int i=0;i<q;i++){
+        char ch;
+        ch=getchar();
+        int x;
+        if(ch=='c'){
+            scanf("%d",&x); getchar();
+            int lo=1,high=en;
+            int ans=-1;
+            while(lo<=high){
+                int mid=(lo+(high-lo)/2);
+                int xx=query(mid);
+                if(xx>=x){
+                    if(xx==x) ans=mid;
+                    high=mid-1;
+                }
+                else lo=mid+1;
+            }
+            if(ans==-1) printf("none\n");
+            else {
+                printf("%d\n",vec[ans]);
+                update(ans,-1);
+                vec[ans]=-1;
+            }
+        }
+        else {
+            scanf("%d",&x);getchar();
+            vec[++en]=x;
+            update(en,1);
+        }
+    }
+}
+signed main()
+{
+    int t;
+    scanf("%d",&t);
+    int cs=0;
+    while(t--){
+        printf("Case %d:\n",++cs);
+        solve();
+    }
+    return 0;
+}
+```
