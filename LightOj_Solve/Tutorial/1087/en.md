@@ -57,12 +57,14 @@ If you are still stuck with this problem, check the codes below:
 using namespace std;
 const int maxx=150005;
 int BIT[maxx];
+
 void update(int pos,int val){
     while(pos<=maxx-1){
         BIT[pos]+=val;
         pos+=(pos&-pos);
     }
 }
+
 int query(int pos){
     int res=0;
     while(pos>0){
@@ -71,6 +73,7 @@ int query(int pos){
     }
     return res;
 }
+
 void solve(){
     memset(BIT, 0, sizeof(BIT));
     int n,q;
@@ -113,6 +116,7 @@ void solve(){
         }
     }
 }
+
 signed main()
 {
     int t;
