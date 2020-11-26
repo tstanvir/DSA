@@ -41,8 +41,7 @@ The prefix sum array will look like,
 1 2 2 3 4 5  
 1 2 3 4 5 6  
 
-The actual problem will give you the relative position of a people and you need to output the ID of that people who has the relative position the problem  
-asked for and of course the left most occurrence of that relative position is the ans.  
+The actual problem will give you the relative position of a people and you need to output the ID of that people who has the relative position the problem asked for   and of course the left most occurrence of that relative position is the ans.  
 
 So,for prefix sum query and update we can use any range query data structure such as [Segment Tree](https://cp-algorithms.com/data_structures/segment_tree.html),[Binary Indexed Tree](https://www.youtube.com/watch?v=CWDQJGaN1gY&t=447s).  
 As,prefix sum array is a monotonic array,we can binary search for the leftmost occurrence of the relative position the problem will ask for.  
