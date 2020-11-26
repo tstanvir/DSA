@@ -105,7 +105,7 @@ void solve(){
             if(ans==-1) printf("none\n");
             else {
                 printf("%d\n",vec[ans]);
-                update(ans,-1);
+                update(ans,-1); // Because the person who was standing at that ans position will come out and leave that position void. So,# of person will decrease by 1.
                 vec[ans]=-1;
             }
         }
