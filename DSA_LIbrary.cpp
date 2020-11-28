@@ -429,7 +429,7 @@ struct rmq{
     vector<int>arr;
     vector<vector<int>>sparse;
     int maxxx;
-    rmq(int n,vector<int>vec){
+    void init(int n,vector<int>vec){
         maxxx=n;
         arr=vec;
         sparse.resize(n);
