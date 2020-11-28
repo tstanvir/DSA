@@ -401,6 +401,29 @@ ll ncr(ll n,ll k){
 }
 
 
+//Binary indexed tree(BIT) point update point query
+struct BIT{
+    vector<int>bt;
+    BIT(int n){
+        bt.resize(n+1);
+    }
+    void update(int pos,int val,int upto){
+        while(pos<=upto){
+            bt[pos]+=val;
+            pos+=(pos&-pos);
+        }
+    }
+    int query(int pos){
+        int res=0;
+        while(pos>0){
+            res+=bt[pos];
+            pos-=(pos&-pos);
+        }
+        return res;
+    }
+};
+
+
 //rmq by sparse table
 struct rmq{
     vector<int>arr;
