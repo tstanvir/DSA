@@ -401,6 +401,65 @@ ll ncr(ll n,ll k){
 }
 
 
+//rmq by sparse table
+struct rmq{
+    vector<int>arr;
+    vector<vector<int>>sparse;
+    int maxxx;
+    rmq(int n,vector<int>vec){
+        maxxx=n;
+        arr=vec;
+        sparse.resize(n);
+        for(auto &it:sparse ){
+            it.resize((int)log2(n)+1);
+        }
+    }
+    int  po(int  base , int power){
+        int ret=1;
+        while(power){
+            ret*=base;
+            power--;
+        }
+        return ret;
+    }
+    ll lg2(ll x){
+        ll res=0;
+        while(x>1){
+            res++;
+            x/=2ll;
+        }
+        return res;
+    }
+    void prepo(){
+        int col=lg2(maxxx)+1;
+        for(int i=0;i<maxxx;i++) sparse[i][0]=i; /*the first column of sparse table is equal to the row number because
+        the index of the minimum element in range start from ith index to the next 2^j element is the i itself*/
+        for(int j=1;j<=col;j++){
+            for(int i=0;i+po(2,j)-1<maxxx;i++){ // this condition is for not going out of bound. else range may go out of bound.
+                if(arr[sparse[i][j-1]]<arr[sparse[i+po(2,j-1)][j-1]]){ /*this conditions use the previous range's result. Basically,breaks the
+                        present range into two halves that represents the previously calculated halves and compare between them. Seems like used
+                        DP here*/
+                    sparse[i][j]=sparse[i][j-1];
+                }
+                else {
+                    sparse[i][j]=sparse[i+po(2,j-1)][j-1];
+                }
+            }
+        }
+    }
+    int minQ(int l,int r){
+        int tot=r-l+1;
+        int k=log2(tot);
+        int slide=l+(tot-pow(2,k));
+        return min(arr[sparse[l][k]],arr[sparse[slide][k]]);
+        /*
+        dividing the range into to halves: 1st--> starting from l to next 2^k elements
+                                           2nd--> starting from l+(number of the rest of the elements that was outside the 1st range) to l
+        */
+    }
+};
+
+
 
 //Disjoint Set Union
 struct DSU{
