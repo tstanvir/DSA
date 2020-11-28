@@ -484,6 +484,60 @@ struct rmq{
 
 
 
+//2d rmq using sparse table, 0 indexed
+int n,arr[maxx][maxx],q;
+pair<int,int>sparsT[maxx][maxx][maxln];
+void prepo(){
+    rep(i,n){
+        rep(j,n) sparsT[i][j][0]={i,j};
+    }
+    int col=(int)log2(n)+1;
+    rep1(k,1,col){
+        for(int i=0;i+po(2,k)-1<n;i++){
+            for(int j=0;j+po(2,k)-1<n;j++){
+                int x=i+po(2,k-1),y=j+po(2,k-1);
+                int x1=sparsT[i][j][k-1].ff,y1=sparsT[i][j][k-1].ss,x2=sparsT[i][y][k-1].ff,y2=sparsT[i][y][k-1].ss;
+                if(arr[x1][y1]>arr[x2][y2]){
+                    sparsT[i][j][k]=sparsT[i][j][k-1];
+                }
+                else{
+                    sparsT[i][j][k]=sparsT[i][y][k-1];
+                }
+                x1=sparsT[x][j][k-1].ff,y1=sparsT[x][j][k-1].ss,x2=sparsT[x][y][k-1].ff,y2=sparsT[x][y][k-1].ss;
+                int x3,y3;
+                if(arr[x1][y1]>arr[x2][y2]){
+                    x3=sparsT[x][j][k-1].ff;
+                    y3=sparsT[x][j][k-1].ss;
+                }
+                else{
+                    x3=sparsT[x][y][k-1].ff;
+                    y3=sparsT[x][y][k-1].ss;
+                }
+                x1=sparsT[i][j][k].ff,y1=sparsT[i][j][k].ss;
+                if(arr[x1][y1]>arr[x3][y3]){
+                    sparsT[i][j][k]=sparsT[i][j][k];
+                }
+                else{
+                    sparsT[i][j][k]={x3,y3};
+                }
+            }
+        }
+    }
+}
+int minQ(int x1,int y1,int x2,int y2){
+    int Lx=x2-x1+1,Ly=y2-y1+1;
+    int kx=(int)log2(Lx),ky=int(log2(Ly));
+    int slidex=x1+(Lx-po(2,kx)),slidey=y1+(Ly-po(2,ky));
+    int a1=sparsT[x1][y1][ky].ff,b1=sparsT[x1][y1][ky].ss,a2=sparsT[x1][slidey][ky].ff,b2=sparsT[x1][slidey][ky].ss;
+    int m1=max(arr[a1][b1],arr[a2][b2]);
+    a1=sparsT[slidex][y1][kx].ff,b1=sparsT[slidex][y1][kx].ss,a2=sparsT[slidex][slidey][kx].ff,b2=sparsT[slidex][slidey][kx].ss;
+    int m2=max(arr[a1][b1],arr[a2][b2]);
+    return max(m1,m2);
+
+}
+
+
+
 //Disjoint Set Union
 struct DSU{
     vector <int> arr, szz;//arr[i]=j means j is the root of  i; //
