@@ -315,6 +315,46 @@ void dfs(ll child,ll par){
 
 
 
+//LCA using binaryLifting with O(logn) complexity per query and O(nlogn) complexity for precomputation
+int n,ht,timer;
+vector<vector<int>>up;
+vector<int>edg[maxx];
+vector<int>st,en;
+void dfs(int v,int p){
+    st[v]=++timer;
+    up[v][0]=p;
+    for(int i=1;i<=ht;i++){
+        up[v][i]=up[up[v][i-1]][i-1];
+    }
+    for(int u:edg[v])
+    {
+        if(u!=p) dfs(u,v);
+    }
+    en[v]=++timer;
+}
+bool is_ancestor(int u,int v){
+    return st[u]<=st[v] and en[u]>=en[v];
+}
+int lca_qu(int u,int v){
+        if(is_ancestor(u,v)) return u;
+        if(is_ancestor(v,u)) return v;
+        for(int i=ht;i>=0;i--){
+            if(!is_ancestor(up[u][i],v))
+                u=up[u][i];
+        }
+        return up[u][0];
+}
+void prepo(int root){
+    st.resize(n);
+    en.resize(n);
+    timer=0;
+    ht=ceil(log2(n));
+    //debug(ht);
+    up.assign(n, vector<int>(ht + 1));
+    dfs(root,root);
+}
+
+
 //base^power%MOD(1000000007) for big power
 template<typename T>inline T Bigmod(T base, T power, T MOD){
     T ret=1;
@@ -456,7 +496,7 @@ struct rmq{
     void prepo(){
         int col=lg2(maxxx)+1;
         for(int i=0;i<maxxx;i++) sparse[i][0]=i; /*the first column of sparse table is equal to the row number because
-        the index of the minimum element in range start from ith index to the next 2^j element is the i itself*/
+        the index of the minimum element in range start from ith index to the next 2^0 element is the i itself*/
         for(int j=1;j<=col;j++){
             for(int i=0;i+po(2,j)-1<maxxx;i++){ // this condition is for not going out of bound. else range may go out of bound.
                 if(arr[sparse[i][j-1]]<arr[sparse[i+po(2,j-1)][j-1]]){ /*this conditions use the previous range's result. Basically,breaks the
@@ -477,7 +517,8 @@ struct rmq{
         return min(arr[sparse[l][k]],arr[sparse[slide][k]]);
         /*
         dividing the range into to halves: 1st--> starting from l to next 2^k elements
-                                           2nd--> starting from l+(number of the rest of the elements that was outside the 1st range) to l
+                                           2nd--> starting from l+(number of the rest of the elements that was outside the 1st range) to next 2^k 
+                                           elements
         */
     }
 };
