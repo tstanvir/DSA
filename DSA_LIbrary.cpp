@@ -144,6 +144,81 @@ struct point
 
 
 
+//segment tree without update for finding rmq
+ll minSeg[4*maxx],maxSeg[4*maxx],arr[maxx];
+void build(int treeL,int treeR,int pos){
+    if(treeL==treeR){
+        minSeg[pos]=arr[treeL];
+        maxSeg[pos]=arr[treeR];
+        return;
+    }
+    int mid=treeL+(treeR-treeL)/2;
+    build(treeL,mid,2*pos+1);
+    build(mid+1,treeR,2*pos+2);
+    minSeg[pos]=min(minSeg[2*pos+1],minSeg[2*pos+2]);
+    maxSeg[pos]=max(maxSeg[2*pos+1],maxSeg[2*pos+2]);
+}
+ll minQ(int treeL,int treeR,int L,int R,int pos){
+    if(treeR<L or treeL>R) return highest(ll);
+    if(L<=treeL and treeR<=R){
+        return minSeg[pos];
+    }
+    int mid=treeL+(treeR-treeL)/2;
+    return min(minQ(treeL,mid,L,R,2*pos+1),minQ(mid+1,treeR,L,R,2*pos+2));
+}
+ll maxQ(int treeL,int treeR,int L,int R,int pos){
+    if(treeR<L or treeL>R) return lowest(ll);
+    if(L<=treeL and treeR<=R){
+        return maxSeg[pos];
+    }
+    int mid=treeL+(treeR-treeL)/2;
+    return max(maxQ(treeL,mid,L,R,2*pos+1),maxQ(mid+1,treeR,L,R,2*pos+2));
+}
+
+
+
+//segment tree "range update range sum query" with lazy propagation 
+ll segsum[4*maxx],lazy[4*maxx];
+void pushDown(int pos,int treeL,int treeR){
+    if(lazy[pos]!=0){
+        segsum[pos]+=(lazy[pos]*(treeR-treeL+1)*1ll);
+        if(treeL!=treeR)
+        {
+            lazy[2*pos+1]+=lazy[pos];
+            lazy[2*pos+2]+=lazy[pos];
+        }
+        lazy[pos]=0;
+    }
+}
+void update(int treeL,int treeR,int ul,int ur,int pos,ll val){
+    pushDown(pos,treeL,treeR);
+    if(ul<=treeL and ur>=treeR){//total overlap
+        segsum[pos]+=(val*(treeR-treeL+1)*1ll);
+        if(treeL!=treeR){
+            lazy[2*pos+1]+=val;
+            lazy[2*pos+2]+=val;
+        }
+        return;
+    }
+    if(ul>treeR or ur<treeL) return;
+    int mid=treeL+(treeR-treeL)/2;
+    update(treeL,mid,ul,ur,2*pos+1,val);
+    update(mid+1,treeR,ul,ur,2*pos+2,val);
+    segsum[pos]=segsum[2*pos+1]+segsum[2*pos+2];
+}
+ll query(int treeL,int treeR,int ql,int qr,int pos){
+    pushDown(pos,treeL,treeR);
+    if(ql>treeR or qr<treeL) return 0ll;
+    if(ql<=treeL and qr>=treeR){
+        return segsum[pos];
+    }
+    int mid=treeL+(treeR-treeL)/2;
+    return query(treeL,mid,ql,qr,2*pos+1)+query(mid+1,treeR,ql,qr,2*pos+2);
+}
+
+
+
+
 //BST[n] means number of binary search tree can be formed by n distinct number. It is also known as catalan number.
 // BST[n]==Cn[i]
 //Cn[n]=(2n)!/((n+1)!*n!)=C(2n,n)/n+1
