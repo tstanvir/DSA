@@ -143,6 +143,45 @@ struct point
 
 
 
+//HLD heavy light decomposition 
+int chainNo, chainInd[maxx], chainHead[maxx], posInBase[maxx],ptr;
+ll baseArray[maxx];
+vi edg[maxx],par(maxx),heavy_child(maxx); //heavy_child refers to the child who has the maximum subtree size, we can find that using dfs.
+int dfs(int v,int p){
+    int szz=1;
+    int mxsz=0;
+    for(int u:edg[v])
+    {
+        if(u!=p){
+            par[u]=v;
+            int ch_sz=dfs(u,v);
+            szz+=ch_sz;
+            if(ch_sz>mxsz){
+                mxsz=ch_sz;
+                heavy_child[v]=u;
+            }
+        }
+    }
+    return szz;
+}
+void HLD(int cur){
+    if(chainHead[chainNo]==-1) chainHead[chainNo]=cur;
+    chainInd[cur]=chainNo;
+    posInBase[cur]=ptr;
+    baseArray[ptr++]=cost[cur];
+    if(heavy_child[cur]!=-1) HLD(heavy_child[cur]);
+    forch(it,edg[cur]){
+        if(it!=par[cur] and it!=heavy_child[cur]){
+            chainNo++;
+            HLD(it);
+        }
+    }
+
+}
+
+
+
+
 
 //segment tree without update for finding rmq
 ll minSeg[4*maxx],maxSeg[4*maxx],arr[maxx];
