@@ -217,7 +217,7 @@ ll maxQ(int treeL,int treeR,int L,int R,int pos){
 
 
 //bit binary indexed tree
-int bit[100005];
+int bit[maxx];
 void update(int pos,int val,int n){
     while(pos<=n){
         bit[pos]+=val;
