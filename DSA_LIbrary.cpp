@@ -216,6 +216,25 @@ ll maxQ(int treeL,int treeR,int L,int R,int pos){
 
 
 
+//bit binary indexed tree
+int bit[100005];
+void update(int pos,int val,int n){
+    while(pos<=n){
+        bit[pos]+=val;
+        pos+=(pos&-pos);
+    }
+}
+int query(int pos){
+    int sum=0;
+    while(pos>0){
+        sum+=bit[pos];
+        pos-=(pos&-pos);
+    }
+    return sum;
+}
+
+
+
 //segment tree "range update range sum query" with lazy propagation 
 ll segsum[4*maxx],lazy[4*maxx];
 void pushDown(int pos,int treeL,int treeR){
