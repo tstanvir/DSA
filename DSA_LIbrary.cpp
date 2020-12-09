@@ -142,6 +142,31 @@ struct point
 } a, b, c, d;
 
 
+//next greater element O(n) using stack
+pair<vi,vi> nge(int arr[],int n){//next greater element
+    vi ngeElement(n,-1),ngeInd(n,-1);
+    stack<int>sEl,sInd;
+    sEl.push(arr[0]);
+    sInd.push(0);
+    rep1(i,1,n-1){
+        if(sEl.empty())
+        {
+            sEl.push(arr[i]);
+            sInd.push(i);
+            continue;
+        }
+        while(!sEl.empty() and sEl.top()<arr[i]){
+            ngeElement[sInd.top()]=arr[i];
+            ngeInd[sInd.top()]=i;
+            sEl.pop();
+            sInd.pop();
+        }
+        sEl.push(arr[i]);
+        sInd.push(i);
+    }
+}
+
+
 
 //HLD heavy light decomposition 
 int chainNo, chainInd[maxx], chainHead[maxx], posInBase[maxx],ptr;
