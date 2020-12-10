@@ -46,6 +46,7 @@ n টা ভিন্ন ভিন্ন নাম্বার দিয়ে ক�
 <summary>  
     কিভাবে ডিপি কাজে লাগবে?
 </summary>
-<img src="BST_recur.jpg" width="500" height="50" align="middle"> 
+
+<img src="BST_recur.jpg" width="500" height="500" align="middle"> 
 
 </details>
