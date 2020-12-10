@@ -26,4 +26,4 @@ n টা ভিন্ন ভিন্ন নাম্বার দিয়ে ক�
 
 ## Solution
 
-<img src="BST.jpg" width="500" height="500" align="center">
+<img src="BST.jpg" width="500" height="500" align="middle">
