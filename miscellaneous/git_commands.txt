@@ -31,3 +31,4 @@
 29. git remote : shows you the nickname for the repo
 30. git push -u <nickname> master : uploads all the file from the local repo to online repo
 31.origin is my nickname
+32. git checkout -b <branch name> : to create a new branch to push into an open source project.
