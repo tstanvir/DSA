@@ -799,25 +799,77 @@ struct DSU{
 
 
 //Minimum Spanning Tree (mst) using dsu
-    int n;
-    scanf("%d",&n); //number of nodes
-    vector<tuple<int,int,int>>edgs;
-    int u,v,w;
-    while(scanf("%d%d%d",&u,&v,&w)) { //given edges of that graph
-            if(u==0 and v==0) break;
-            edgs.pb(make_tuple(w,u,v));
+int n;
+scanf("%d",&n); //number of nodes
+vector<tuple<int,int,int>>edgs;
+int u,v,w;
+while(scanf("%d%d%d",&u,&v,&w)) { //given edges of that graph
+        if(u==0 and v==0) break;
+        edgs.pb(make_tuple(w,u,v));
+}
+sort(ALL(edgs)); //sorting acording to the ascending order of the cost of the edgs.
+int szz=sz(edgs);
+int minCost=0; //minimum cost of that spanning tree.
+DSU d(n);
+rep(i,szz){
+    int w=get<0>(edgs[i]),u=get<1>(edgs[i]),v=get<2>(edgs[i]);
+    if(d.root(u)!=d.root(v)){
+        minCost+=w;
+        d.merge(u,v);
     }
-    sort(ALL(edgs)); //sorting acording to the ascending order of the cost of the edgs.
-    int szz=sz(edgs);
-    int minCost=0; //minimum cost of that spanning tree.
-    DSU d(n);
-    rep(i,szz){
-        int w=get<0>(edgs[i]),u=get<1>(edgs[i]),v=get<2>(edgs[i]);
-        if(d.root(u)!=d.root(v)){
-            minCost+=w;
-            d.merge(u,v);
+}
+
+
+
+
+//articulation bridges and points
+//graph can not contain multiple edgs and self edgs
+//graph can be disconnected
+vi edg[maxx],st(maxx),low(maxx,highest(int)),vis(maxx); // st-> stores dicovery time of every node in dfs tree. 
+vpii bridgs;                                            // low[u]-> sotres the lowest discovery time among set of nodes in the subtree of u 
+int Time=0;
+void init(int n){
+    rep(i,n) edg[i].clear(),st[i]=0,low[i]=highest(int),vis[i]=0;
+    bridgs.clear();
+    Time=0;
+}
+void dfs(int u,int p){
+    vis[u]=1;
+    low[u]=st[u]=++Time;
+    forch(v,edg[u]){
+        if(v==p) continue;
+        if(vis[v]){
+            low[u]=min(low[u],st[v]);
+        }
+        else{
+            dfs(v,u);
+            low[u]=min(low[u],low[v]);
+            if(st[u]<low[v]){                       //this code is for bridges purpose. but por articulation point, just this condition 
+                                                    // st[u]<low[v] will be replaced by st[u]<=low[v];
+                bridgs.pb({min(u,v),max(u,v)});
+            }
         }
     }
+}
+void solve(){
+    int n,m;
+    cin>>n>>m;
+    init(n);
+    rep(i,m){
+        int u,v;
+        cin>>u>>v;
+        u--,v--;
+        edg[u].pb(v);
+        edg[v].pb(u);
+    }
+    rep(i,n){
+        if(!vis[i]){
+            dfs(i,-1);
+        }
+    }
+    cout<<bridgs.size()<<endl;
+    
+}
 
 
 
