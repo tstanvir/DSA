@@ -157,10 +157,10 @@ while(!q.empty()){
     //debug("chk");
     vis[u]=1;
     //debug(edg[u].size());
-    rep1(v,1,n){
-        //debug(cost[u][v]);
-        if(w+cost[u][v]<dist[v]){
-            dist[v]=w+cost[u][v];
+    forch(it,edg[u]){
+        int v=it.ff,cost=it.ss;
+        if(cost+w<dist[v]){
+            dist[v]=cost+w;
             q.insert({dist[v],v});
         }
     }
@@ -795,6 +795,29 @@ struct DSU{
         }
     }
 };
+
+
+
+//Minimum Spanning Tree (mst) using dsu
+    int n;
+    scanf("%d",&n); //number of nodes
+    vector<tuple<int,int,int>>edgs;
+    int u,v,w;
+    while(scanf("%d%d%d",&u,&v,&w)) { //given edges of that graph
+            if(u==0 and v==0) break;
+            edgs.pb(make_tuple(w,u,v));
+    }
+    sort(ALL(edgs)); //sorting acording to the ascending order of the cost of the edgs.
+    int szz=sz(edgs);
+    int minCost=0; //minimum cost of that spanning tree.
+    DSU d(n);
+    rep(i,szz){
+        int w=get<0>(edgs[i]),u=get<1>(edgs[i]),v=get<2>(edgs[i]);
+        if(d.root(u)!=d.root(v)){
+            minCost+=w;
+            d.merge(u,v);
+        }
+    }
 
 
 
