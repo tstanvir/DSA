@@ -142,6 +142,35 @@ struct point
 } a, b, c, d;
 
 
+
+
+//Basic Dijkstra
+int src=1;
+dist[src]=0;
+multiset<pair<int,int>>q;
+q.insert({0,src});
+while(!q.empty()){
+    int u=(*q.begin()).ss,w=(*q.begin()).ff;
+    //debug(u,w,vis[u]);
+    q.erase(q.begin());
+    if(vis[u]) continue;
+    //debug("chk");
+    vis[u]=1;
+    //debug(edg[u].size());
+    rep1(v,1,n){
+        //debug(cost[u][v]);
+        if(w+cost[u][v]<dist[v]){
+            dist[v]=w+cost[u][v];
+            q.insert({dist[v],v});
+        }
+    }
+}
+if(dist[n]<(int)1e7) printf("%d\n",dist[n]);
+else printf("Impossible\n");
+
+
+
+
 //next greater element O(n) using stack
 pair<vi,vi> nge(int arr[],int n){//next greater element
     vi ngeElement(n,-1),ngeInd(n,-1);
