@@ -49,7 +49,7 @@ See, in this above example, with 3 different node or key, we can form 5 differen
 
 For different value of n,this recurrence relation is true and base case for that recurrence is, for n=0 we can form an empty BST and for n=1 we can form a BST contains a node.  
 
-Let say, we have n nodes and if you choose a node as root then we have n-1 non-root node choices. Again,from these n-1 non-root node choices,we can partition them into to parts: one containing the nodes lesser than the root node and one containing the nodes greater than the root. If i is our chosen root node,the we will have i-1 non-root node lesser than root i and n-i non-root node greater than i. For these two sets of non-root node, we will find a certain amount of BST and total BST would be `t(i-1)*t(n-i)`. Multiplication, because those two non-root set is disjoint. For,choosing every node as root node,we can find total these amount of BST for n nodes.  
+Let say, we have `n` nodes and if you choose a node as root then we have `n-1` non-root node choices. Again,from these `n-1` non-root node choices,we can partition them into two parts: one containing the nodes lesser than the root node and one containing the nodes greater than the root. If `i` is our chosen root node,then we will have `i-1` non-root node lesser than root `i` and `n-i` non-root node greater than `i`. For these two sets of non-root node, we will find a certain amount of BST and total BST would be `t(i-1)*t(n-i)`. Multiplication? Because those two non-root set is disjoint. For,choosing every node as root node,we can find total these amount of BST for `n` nodes.  
 
 <img src="BST_recur.JPG" width="500" height="50" align="middle"> 
 
