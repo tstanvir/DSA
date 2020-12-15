@@ -822,7 +822,7 @@ rep(i,szz){
 
 
 
-//articulation bridges and points
+//articulation bridges 
 //graph can not contain multiple edgs and self edgs
 //graph can be disconnected
 vi edg[maxx],st(maxx),low(maxx,highest(int)),vis(maxx); // st-> stores dicovery time of every node in dfs tree. 
@@ -872,6 +872,53 @@ void solve(){
 }
 
 
+//articulation points
+vi edg[maxx],st(maxx),low(maxx,highest(int)),vis(maxx),par(maxx),points(maxx); // st-> stores dicovery time of every node in dfs tree.
+                                            // low[u]-> sotres the lowest discovery time among set of nodes in the subtree of u
+int Time=0;
+void init(int n){
+    rep(i,n) edg[i].clear(),st[i]=0,low[i]=highest(int),vis[i]=0,par[i]=-1,points[i]=0;
+    Time=0;
+}
+void dfs(int u,int p){
+    vis[u]=1;
+    low[u]=st[u]=++Time;
+    int ch=0;
+    forch(v,edg[u]){
+        if(v==p) continue;
+        if(vis[v]){
+            low[u]=min(low[u],st[v]);
+        }
+        else{
+            par[v]=u;
+            dfs(v,u);
+            low[u]=min(low[u],low[v]);
+            if(st[u]<=low[v] and par[u]!=-1){                       //this code is for bridges purpose. but por articulation point, just this condition
+                points[u]=1;                                    // st[u]<low[v] will be replaced by st[u]<=low[v];
+            }
+            ch++;
+        }
+        if(par[u]==-1 and ch>1) points[u]=1;
+    }
+
+}
+void solve(){
+    int n,m;
+    scanf("%d%d",&n,&m);
+    init(n);
+    rep(i,m){
+        int u,v;
+        scanf("%d%d",&u,&v);
+        u--,v--;
+        edg[u].pb(v);
+        edg[v].pb(u);
+    }
+    dfs(0,-1);
+    int ans=0;
+    rep(i,n) ans+=points[i];
+    printf("%d\n",ans);
+
+}
 
 
 void solve(){
