@@ -921,6 +921,59 @@ void solve(){
 }
 
 
+
+//trie data structure
+struct node {
+    bool endmark;
+    node* next[26 + 1];
+    node()
+    {
+        endmark = false;
+        for (int i = 0; i < 26; i++)
+            next[i] = NULL;
+    }
+} * root;
+void ins(string str)
+{
+    int len=sz(str);
+    node* curr = root;
+    for (int i = 0; i < len; i++) {
+        int id = str[i] - 'a';
+        if (curr->next[id] == NULL)
+            curr->next[id] = new node();
+        curr = curr->next[id];
+    }
+    curr->endmark = true;
+}
+bool srch(string str)
+{
+    int len=sz(str);
+    node* curr = root;
+    for (int i = 0; i < len; i++) {
+        int id = str[i] - 'a';
+        if (curr->next[id] == NULL)
+            return false;
+        curr = curr->next[id];
+    }
+    return curr->endmark;
+}
+void del(node* cur)
+{
+    for (int i = 0; i < 26; i++)
+        if (cur->next[i])
+            del(cur->next[i]);
+
+    delete (cur);
+}
+
+void solve(){
+    root=new node();
+    //all other code
+
+    del(root);
+}
+
+
 void solve(){
 
 
