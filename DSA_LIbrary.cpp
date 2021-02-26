@@ -420,6 +420,53 @@ BST[0]=0;
 //BT(n) = BST(n)*n!
 
 
+//Phi(x), number of i(1<=i<=x-1) where gcd(i,x)==1;
+//Source: http://shoshikkha.com/archives/1472
+ull phi[maxx] ;
+void sievePHI(){
+    ull i,j;
+    for( i=2;i<maxx;i++){
+        if( phi[i]==0){
+            phi[i] = i-1;
+            for( j = i*2; j<maxx; j+=i){
+                if( phi[j] == 0 )phi[j] = j;
+                phi[j] /= i ;
+                phi[j] *= (i-1);
+            }
+        }
+    }
+}
+
+//for a big number 
+ll prime(ll a)
+{
+    for(int i=2;i*i<=a;i++)
+        if(a%i==0) return 1;
+    return 0;
+}
+ll phi(ll n)
+{
+    ll i,mul=1,holder,fre=0;
+    if(prime(n)==0) mul=n-1;
+    else
+    {
+        for(int i=2;i*i<=n;i++)
+        {
+            if(n%i==0)
+            {
+                while(n%i==0)
+                {
+                    fre++;n/=i;holder=i;
+                }
+                mul*=(po(holder,fre-1)*(holder-1));
+                fre=0;
+            }
+        }
+        if(n!=1)
+            mul*=(n-1);
+    }
+    return mul;
+}
 
 
 //using pair as a key in unordered map
@@ -664,7 +711,7 @@ ll ncr(ll n,ll k){
     if(k==0 || n-k==0) return 1;
     ll res=fact[n];
     //cout<<n<<" "<<fact[n]<<endl;
-    ll denom= (Bigmod(fact[k],MOD-2,MOD)+MOD)%MOD*(Bigmod(fact[n-k],MOD-2,MOD)+MOD)%MOD;
+    ll denom= (modPow(fact[k],MOD-2)+MOD)%MOD*(modPow(fact[n-k],MOD-2)+MOD)%MOD;
     denom%=MOD;
     return (res%MOD*denom%MOD)%MOD;
 }
@@ -678,7 +725,7 @@ void init(){
         fact[i]=(fact[i-1]*i)%MOD;
         fact[i]%=MOD;
     }
-    inv[maxx-1]=Bigmod(fact[maxx-1],MOD-2,MOD);
+    inv[maxx-1]=modPow(fact[maxx-1],MOD-2);
     irep(i,maxx-2,0){
         inv[i]=(inv[i+1]*(i+1))%MOD;
     }
