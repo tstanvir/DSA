@@ -42,7 +42,7 @@ vector<string> vec_splitter(string s) {
     }
     return res;
 }
- void debug_out(
+void debug_out(
 vector<string> __attribute__ ((unused)) args,
 __attribute__ ((unused)) int idx,
 __attribute__ ((unused)) int LINE_NUM) { cerr << endl; }
@@ -61,6 +61,7 @@ void debug_out(vector<string> args, int idx, int LINE_NUM, Head H, Tail... T) {
 #define debug(...) 42
 #endif
  
+ 
 
 typedef long long ll;
 typedef unsigned long long ull;
@@ -74,7 +75,7 @@ int dx8[] = {0, 0, 1, 1, 1, -1, -1, -1};
 int dy8[] = {1,-1, 1, -1, 0, 0, -1, 1};
 int dx4[] = {0, 0, 1, -1};
 int dy4[] = {1, -1, 0, 0};
-const int maxx=400005;
+const int maxx=100005;
 const long long MOD = 1000000007;
 const double rad=(acos(-1)/180.00);
 const int INF    = 0x3f3f3f3f;
@@ -97,97 +98,16 @@ bool sortinrev(const pair<int,int> &a,const pair<int,int> &b)
 {
     return a.first>b.first;
 }
-/*struct tN{
-    int t,n;
-    bool operator < (const tN &other) const{
-        
-        if(t==block_other){
-            return r<other.r;
-        }
-        return block_own<block_other;
-    }
-};*/
-vi edg[maxx],vis(maxx),st(maxx),en(maxx),sbtreeSz(maxx);
-int n,tim;
-void init(){
-    rep(i,n+1) edg[i].clear();
-    fill(ALL(vis),0);
-    tim=0;
-    fill(ALL(st),0);
-    fill(ALL(en),0);
-    fill(ALL(sbtreeSz),0);
-}
-void dfs(int par){
-    vis[par]=1;
-    st[par]=++tim;
-    sbtreeSz[par]++;
-    forch(it,edg[par]){
-        if(!vis[it]){
-            dfs(it);
-            sbtreeSz[par]+=sbtreeSz[it];
-        }
-    }
-    en[par]=++tim;
-}
+int cs=0;
 void solve(){
-    init();
+    //cout<<"Case "<<++cs<<": ";
+    int n;
     cin>>n;
-    rep(i,n-1){
-        int u,v;
-        cin>>u>>v;
-        edg[u].pb(v);
-        edg[v].pb(u);
-    }
-    rep1(i,1,n){
-        sort(ALL(edg[i]));
-    }
-    dfs(1);
-    set<pair<int,int>> unfilled;
-    rep1(i,1,n){
-        unfilled.insert({en[i],i});
-    }
-    /*sort(ALL(entimNode));
-    deque<int>dq;
-    vi inThatPos(n+1);
+    vi vec(n);
     rep(i,n){
-        dq.pb(entimNode[i].ss);
-        inThatPos[entimNode[i].ss]=i;
+    	cin>>vec[i];
     }
-    /*forch(it,dq){
-        cout<<it<<" ";
-    }
-    rep1(i,1,n) {
-        debug(i,sbtreeSz[i]);
-    }
-    cout<<endl;*/
-    int q;
-    cin>>q;
-    vi unemployed(n+1);
-    rep(i,q){
-        int t;
-        cin>>t;
-        if(t==1){
-            int x,val;
-            cin>>x>>val;
-            while(val--){
-                auto it=unfilled.lower_bound({st[x],0});
-                if(it==unfilled.end() or (*it).ff>en[x]) break;
-                unemployed[(*it).ss]=1;
-                unfilled.erase(it);
-            }
-            
-        }
-        else{
-            int x;
-            cin>>x;
-            if(unemployed[x]==0){
-                cout<<0<<endl;
-            }
-            else {
-                cout<<1<<endl;
-            }
-        }
-    }
+    count(ALL(vec),maxv(vec))>1?cout<<"No"<<endl:cout<<"Yes"<<endl;
 }
  
 signed main()
@@ -197,9 +117,7 @@ signed main()
     int t;
     t=1;
     cin>>t;
-    int cs=0;
     while(t--){
-        cout<<"Case "<<++cs<<":"<<endl;
         solve();
     }
     return 0;
