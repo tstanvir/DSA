@@ -258,6 +258,7 @@ pair<vi,vi> nge(int arr[],int n){//next greater element
         sEl.push(arr[i]);
         sInd.push(i);
     }
+    return {ngeElement,ngeInd};
 }
 
 
@@ -333,6 +334,76 @@ ll maxQ(int treeL,int treeR,int L,int R,int pos){
     return max(maxQ(treeL,mid,L,R,2*pos+1),maxQ(mid+1,treeR,L,R,2*pos+2));
 }
 
+
+
+// min in a range with lazy propagation.
+struct SegmentTree
+{
+	typedef int T;
+	#define MAX 500007
+	#define lc (at<<1)
+	#define rc ((at<<1)|1)
+ 
+	pii Tree[4*MAX];
+	T Lazy[4*MAX];
+ 
+	SegmentTree() { }
+ 
+	void pushdown(int at)
+	{
+		if(Lazy[at])
+		{
+			Lazy[lc]+=Lazy[at];
+			Lazy[rc]+=Lazy[at];
+			Tree[lc].first+=Lazy[at];
+			Tree[rc].first+=Lazy[at];
+			Lazy[at]=0;
+		}
+	}
+ 
+	void build(int at, int l, int r)
+	{
+		Lazy[at]=0;
+		if(l==r)
+		{
+			Tree[at] = pii(a[l], l); // Tree[at] = in[l]; input values
+			return;
+		}
+		int mid=(l+r)/2;
+		build(lc,l,mid);
+		build(rc,mid+1,r);
+		Tree[at]=min(Tree[lc],Tree[rc]);
+		Lazy[at]=0;
+	}
+	// Range update
+	void update(int at, int l, int r, int x, int y, T val)
+	{
+		if(x>r || y<l) return;
+		if(x<=l && r<=y)
+		{
+			Tree[at].first+=val;
+			Lazy[at]+=val;
+			return;
+		}
+ 
+		if(l!=r) pushdown(at);	
+ 
+		int mid=(l+r)/2;
+		update(lc,l,mid,x,y,val);
+		update(rc,mid+1,r,x,y,val);
+		Tree[at]=min(Tree[lc],Tree[rc]);
+	}
+	// Range query
+	pii query(int at, int l, int r, int x, int y)
+	{
+		if(x>r || y<l) return pii(inf, -1);
+		if(x<=l && r<=y) return Tree[at];
+		if(l!=r) pushdown(at);
+ 
+		int mid=(l+r)/2;
+		return min(query(lc,l,mid,x,y),query(rc,mid+1,r,x,y));
+	}
+} seg;
 
 
 
