@@ -826,6 +826,44 @@ void sieve(){
 
 
 
+//to find number of unique prime factors for every number 1 to maxx
+int nopf[maxx];
+void sieve(){
+    rep1(i,2,maxx-1){
+        if(nopf[i]==0){
+            for(int j=i;j<maxx;j+=i){
+                nopf[j]++;
+            }
+        }
+    }
+}
+
+
+
+//Smallest Prime Factor to find prime factor in O(nlognlogn) preprossesing and O(logn)
+
+void spf(){
+    Spf[1]=1;
+    rep1(i,1,maxx-1){
+    	Spf[i]=i;
+    }
+    rep1(i,4,maxx-1){
+    	Spf[i]=2;
+    	i++;
+    }
+    for(ll i=3;i*i<maxx;i++){
+        if(Spf[i]==i){
+            for(ll j=i*i;j<maxx;j+=i){
+                if(Spf[j]==j){
+                	Spf[j]=i;
+                }
+            }
+        }
+    }
+}
+
+
+
 //NCR in O(T*logn)
 vll fact(maxx);
 void init(){
