@@ -107,122 +107,174 @@ ll lg2(ll x){
 }
 
 
-/*Hope this helps my friends as well.
-  Actually many of us are afraid of big integers, 
-  and also the below code may look hard, 
-  but this is actually what we do when
-  performing these operations in real life... 
-  Use with caution, not a very first algorithm. 
-  Do not attempt to use *, /, % if
-  numbers are 104 or more digits long.*/
-struct Bigint {
-    string a;
-    int sign;
- 
-    Bigint() {}
-    Bigint( string b ) { (*this) = b; }
-    int size() { return a.size(); }
-    Bigint inverseSign() { sign *= -1; return (*this); }
-    Bigint normalize( int newSign ) {
-        sign = newSign;
-        for( int i = a.size() - 1; i > 0 && a[i] == '0'; i-- ) a.erase(a.begin() + i);
-        if( a.size() == 1 && a[0] == '0' ) sign = 1;
-        return (*this);
-    }
-    void operator = ( string b ) {
-        a = b[0] == '-' ? b.substr(1) : b;
-        reverse( a.begin(), a.end() );
-        this->normalize( b[0] == '-' ? -1 : 1 );
-    }
-    bool operator < ( const Bigint &b ) const {
-        if( a.size() != b.a.size() ) return a.size() < b.a.size();
-        for( int i = a.size() - 1; i >= 0; i-- ) if( a[i] != b.a[i] ) return a[i] < b.a[i];
-        return false;
-    }
-    Bigint operator + ( Bigint b ) {
-        if( sign != b.sign ) return (*this) - b.inverseSign();
-        Bigint c;
-        for( int i = 0, carry = 0; i < (int)a.size() || i < (int)b.size() || carry; i++ ) {
-            carry += (i < (int)a.size() ? a[i] - 48 : 0) + (i < (int)b.a.size() ? b.a[i] - 48 : 0);
-            c.a += (carry % 10 + 48);
-            carry /= 10;
-        }
-        return c.normalize(sign);
-    }
-    Bigint operator - ( Bigint b ) {
-        if( sign != b.sign ) return (*this) + b.inverseSign();
-        if( (*this) < b ) return (b - (*this)).inverseSign();
-        Bigint c;
-        for( int i = 0, borrow = 0; i < (int)a.size(); i++ ) {
-            borrow = a[i] - borrow - (i < b.size() ? b.a[i] : 48);
-            c.a += borrow >= 0 ? borrow + 48 : borrow + 58;
-            borrow = borrow >= 0 ? 0 : 1;
-        }
-        return c.normalize(sign);
-    }
-    Bigint operator * ( Bigint b ) {
-        Bigint c("0");
-        for( int i = 0, k = a[i]; i < (int)a.size(); i++, k = a[i] ) {
-            while(k-- - 48) c = c + b;
-            b.a.insert(b.a.begin(), '0');
-        }
-        return c.normalize(sign * b.sign);
-    }
-    Bigint operator / ( Bigint b ) {
-        if( b.size() == 1 && b.a[0] == '0' ) b.a[0] /= ( b.a[0] - 48 ) ;
-        Bigint c("0"), d;
-        for( int j = 0; j < (int)a.size(); j++ ) d.a += "0";
-        int dSign = sign * b.sign; b.sign = 1;
-        for( int i = a.size() - 1; i >= 0; i-- ) {
-            c.a.insert( c.a.begin(), '0');
-            c = c + a.substr( i, 1 );
-            while( !( c < b ) ) c = c - b, d.a[i]++;
-        }
-        return d.normalize(dSign);
-    }
-    Bigint operator % ( Bigint b ) {
-        if( b.size() == 1 && b.a[0] == '0' ) b.a[0] /= ( b.a[0] - 48 ) ;
-        Bigint c("0");
-        int cSign = sign * b.sign; b.sign = 1;
-        for( int i = a.size() - 1; i >= 0; i-- ) {
-            c.a.insert( c.a.begin(), '0');
-            c = c + a.substr( i, 1 );
-            while( !( c < b ) ) c = c - b;
-        }
-        return c.normalize(cSign);
-    }
-    void print() {
-        if( sign == -1 ) putchar('-');
-        for( int i = a.size() - 1; i >= 0; i-- ) putchar(a[i]);
-    }
-};
-int main() {
-    Bigint a, b, c;
-    a = "511";
-    b = "10";
- 
-    c = a + b;
-    c.print();
-    putchar('\n');
- 
-    c = a - b;
-    c.print();
-    putchar('\n');
- 
-    c = a * b;
-    c.print();
-    putchar('\n');
- 
-    c = a / b;
-    c.print();
-    putchar('\n');
- 
-    c = a % b;
-    c.print();
-    putchar('\n');
- 
-    return 0;
+
+
+/**
+*Anachor(cf)
+
+
+Simple Library for String Hashing
+Uses Rolling Double Hash.
+Hash(abc........z) = a*p^n + b*p^(n-1) + ...... + z
+Cautions:
+1.  You may assign any integer values to characters.
+    Common is 'a' = 1, 'b' = 2 ..........
+    Here the ascii values of characters is used.
+    But never assign any character the value 0.
+    For example if 'a' = 0; 'abc' and 'bc' has the same hash.
+2.  Single Hashing with an unusual mod is often enough,
+    but will surely fail for good enough judge-data.
+    In order to convert to Single Hash -
+        o Delete operator overloads (optional)
+        o Replace all pll with LL
+        o Change mp pairs to appropriate value
+Some Primes:
+1000000007, 1000000009, 1000000861, 1000099999      ( < 2^30 )
+1088888881, 1111211111, 1500000001, 1481481481      ( < 2^31 )
+2147483647 (2^31-1),
+**/
+
+
+
+const pll M=mp(1e9+7, 1e9+9);   ///Should be large primes
+const ll base=347;              ///Should be a prime larger than highest value
+const int N = 1e6+7;            ///Highest length of string
+
+ostream& operator<<(ostream& os, pll hash) {
+    return os<<"("<<hash.ff<<", "<<hash.ss<<")";
 }
+
+pll operator+ (pll a, ll x)     {return mp(a.ff + x, a.ss + x);}
+pll operator- (pll a, ll x)     {return mp(a.ff - x, a.ss - x);}
+pll operator* (pll a, ll x)     {return mp(a.ff * x, a.ss * x);}
+pll operator+ (pll a, pll x)    {return mp(a.ff + x.ff, a.ss + x.ss);}
+pll operator- (pll a, pll x)    {return mp(a.ff - x.ff, a.ss - x.ss);}
+pll operator* (pll a, pll x)    {return mp(a.ff * x.ff, a.ss * x.ss);}
+pll operator% (pll a, pll m)    {return mp(a.ff % m.ff, a.ss % m.ss);}
+
+pll power (pll a, ll p) {
+    if (p==0)   return mp(1,1);
+    pll ans = power(a, p/2);
+    ans = (ans * ans)%M;
+    if (p%2)    ans = (ans*a)%M;
+    return ans;
+}
+
+///Magic!!!!!!!
+pll inverse(pll a)  {
+    return power(a, (M.ff-1)*(M.ss-1)-1);
+}
+
+pll pb[N];      ///powers of base mod M
+pll invb;
+
+///Call pre before everything
+void hashPre() {
+    pb[0] = mp(1,1);
+    for (int i=1; i<N; i++)
+        pb[i] = (pb[i-1] * base)%M;
+    invb = inverse(pb[1]);
+}
+
+///Calculates Hash of a string
+pll Hash (string s) {
+    pll ans = mp(0,0);
+    for (int i=0; i<s.size(); i++)
+        ans=(ans*base + s[i])%M;
+    return ans;
+}
+
+///appends c to string
+pll append(pll cur, char c) {
+    return (cur*base + c)%M;
+}
+
+///prepends c to string with size k
+pll prepend(pll cur, int k, char c) {
+    return (pb[k]*c + cur)%M;
+}
+
+///replaces the i-th (0-indexed) character from right from a to b;
+pll replace(pll cur, int i, char a, char b) {
+    cur = (cur + pb[i] * (b-a))%M;
+    return (cur + M)%M;
+}
+
+///Erases c from the back of the string
+pll pop_back(pll hash, char c) {
+    return (((hash-c)*invb)%M+M)%M;
+}
+
+///Erases c from front of the string with size len
+pll pop_front(pll hash, int len, char c) {
+    return ((hash - pb[len-1]*c)%M+M)%M;
+}
+
+///concatenates two strings where length of the right is k
+pll concat(pll left, pll right, int k) {
+    return (left*pb[k] + right)%M;
+}
+
+///Calculates hash of string with size len repeated cnt times
+///This is O(log n). For O(1), pre-calculate inverses
+pll repeat(pll hash, int len, ll cnt) {
+    pll mul = (pb[len*cnt] - 1) * inverse(pb[len]-1);
+    mul = (mul%M+M)%M;
+    pll ans = (hash*mul)%M;
+
+    if (pb[len].ff == 1)    ans.ff = hash.ff*cnt;
+    if (pb[len].ss == 1)    ans.ss = hash.ss*cnt;
+    return ans;
+}
+
+///Calculates hashes of all prefixes of s including empty prefix
+vector<pll> hashList(string s) {
+    int n = s.size();
+    vector<pll> ans(n+1);
+    ans[0] = mp(0,0);
+
+    for (int i=1; i<=n; i++)
+        ans[i] = (ans[i-1] * base + s[i-1])%M;
+    return ans;
+}
+
+///Calculates hash of substring s[l..r] (1 indexed)
+pll substringHash(const vector<pll> &hashlist, int l, int r) {
+    int len = (r-l+1);
+    return ((hashlist[r] - hashlist[l-1]*pb[len])%M+M)%M;
+}
+
+
+///Solves LightOJ 1255-Substring Frequency
+///You are given two strings A and B. You have to find
+///the number of times B occurs as a substring of A.
+char buffer[N];
+int main()
+{
+    hashPre();
+    int t;
+    scanf("%d", &t);
+
+    for (int cs=1; cs<=t; ++cs)
+    {
+        string a, b;
+        scanf("%s", buffer); a = buffer;
+        scanf("%s", buffer); b = buffer;
+        int na = a.size(), nb = b.size();
+
+        pll hb = Hash(b);
+        vector<pll> ha = hashList(a);
+        int ans = 0;
+
+        for (int i=1; i+nb-1<=na; i++)
+            if (substringHash(ha, i, i+nb-1) == hb)  ans++;
+        printf("Case %d: %d\n", cs, ans);
+    }
+}
+
+
+
+
 
 
 
@@ -361,6 +413,30 @@ pair<vi,vi> nge(int arr[],int n){//next greater element
     sEl.push(arr[0]);
     sInd.push(0);
     rep1(i,1,n-1){
+        if(sEl.empty())
+        {
+            sEl.push(arr[i]);
+            sInd.push(i);
+            continue;
+        }
+        while(!sEl.empty() and sEl.top()<arr[i]){
+            ngeElement[sInd.top()]=arr[i];
+            ngeInd[sInd.top()]=i;
+            sEl.pop();
+            sInd.pop();
+        }
+        sEl.push(arr[i]);
+        sInd.push(i);
+    }
+    return {ngeElement,ngeInd};
+}
+//next greater element O(n) using stack reverse order
+pair<vi,vi> ngerev(vi arr,int n){//next greater element
+    vi ngeElement(n,-1),ngeInd(n,-1);
+    stack<int>sEl,sInd;
+    sEl.push(arr[n-1]);
+    sInd.push(n-1);
+    irep(i,n-2,0){
         if(sEl.empty())
         {
             sEl.push(arr[i]);
