@@ -179,7 +179,7 @@ void hashPre() {
 ///Calculates Hash of a string
 pll Hash (string s) {
     pll ans = mp(0,0);
-    for (int i=0; i<s.size(); i++)
+    for (int i=0; i<(int)s.size(); i++)
         ans=(ans*base + s[i])%M;
     return ans;
 }
@@ -228,14 +228,14 @@ pll repeat(pll hash, int len, ll cnt) {
 }
 
 ///Calculates hashes of all prefixes of s including empty prefix
+vector<pll> res(maxx);
 vector<pll> hashList(string s) {
     int n = s.size();
-    vector<pll> ans(n+1);
-    ans[0] = mp(0,0);
+    res[0] = mp(0,0);
 
     for (int i=1; i<=n; i++)
-        ans[i] = (ans[i-1] * base + s[i-1])%M;
-    return ans;
+        res[i] = (res[i-1] * base + s[i-1])%M;
+    return res;
 }
 
 ///Calculates hash of substring s[l..r] (1 indexed)
