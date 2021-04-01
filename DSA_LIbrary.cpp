@@ -109,6 +109,82 @@ ll lg2(ll x){
 
 
 
+//manachar
+//manachar's
+//0-based indexing
+//p[0][i] is the maximum length of half palindrome around half index i
+//p[1][i] is the maximum length of half palindrome around character i
+//Anachor
+vector<int> p[2];
+//O(n)
+void manacher(const string &s){
+    int n = s.size();
+    p[0] = vector<int>(n+1);
+    p[1] = vector<int>(n);
+
+    for(int z=0;z<2;z++){
+        for(int i=0, l=0, r=0; i<n; i++){
+            int t = r - i + !z;
+            if(i<r)p[z][i] = min(t,p[z][l+t]);
+            int L = i-p[z][i], R = i+p[z][i]- !z;
+            while(L>=1 && R+1<n && s[L-1] == s[R+1])
+                p[z][i]++,L--,R++;
+            if(R>r)l=L, r=R;
+        }
+    }
+}
+//checks if substring from l to r is palindrome or not
+bool isPalindrome(int l, int r){
+    int mid = (l+r+1)/2;
+    int sz= r-l+1;
+    bool b = sz%2;
+    int len = p[b][mid];
+    len = 2*len +b;
+    return len>=sz;
+}
+/// manachar another version
+int pal[2*maxx];
+string get(string &s)
+{
+    string r;
+    r.pb('#');
+    int szz=sz(s);
+   	rep(i,szz){
+          r.pb(s[i]);
+          r.pb('#');
+    }
+    return r;
+
+}
+void manach(string s){
+	
+    int i, now = 0;
+    //pal[0] = 0;
+    int szz=sz(s);
+    for(i = 0; i<szz; i++){
+        pal[i] = max(0,min(pal[now]-(i-now),pal[now-(i-now)])) + 1;
+        while(i-pal[i]>=0 && s[i+pal[i]]==s[i-pal[i]]) pal[i]++;
+        pal[i]--;
+        if(i+pal[i]>now+pal[now]) now = i;
+    }
+}
+bool isPalindrome(int l, int r){
+    int mid = (l+r+1)/2;
+    int sz= r-l+1;
+    int len = pal[mid];
+    len = 2*len+1;
+    //len/=2;
+    return len>=sz;
+}
+
+
+
+
+
+
+
+
+
 /**
 *Anachor(cf)
 
