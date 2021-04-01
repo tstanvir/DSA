@@ -320,6 +320,9 @@ pll substringHash(const vector<pll> &hashlist, int l, int r) {
     return ((hashlist[r] - hashlist[l-1]*pb[len])%M+M)%M;
 }
 
+bool equalSub(const int l1,const int r1,const int l2,const int r2,const vpll& h1,const vpll& h2){
+	return substringHash(h1,l1,r1)==substringHash(h2,l2,r2);
+}
 
 ///Solves LightOJ 1255-Substring Frequency
 ///You are given two strings A and B. You have to find
