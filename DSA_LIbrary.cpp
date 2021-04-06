@@ -133,7 +133,7 @@ void manacher(const string &s){
         }
     }
 }
-//checks if substring from l to r is palindrome or not
+//checks if substring from l to r is palindrome or not (0 indexed)
 bool isPalindrome(int l, int r){
     int mid = (l+r+1)/2;
     int sz= r-l+1;
@@ -1523,6 +1523,42 @@ void solve(){
 
     del(root);
 }
+
+
+
+//bipartite checking
+//bipertite
+//biper
+int n;
+vector<vector<int>> edg;
+
+vector<int> inSet(n, -1);//isSet[i]=0 means ith node is in set 0
+						// isSet[i]=1 means ith node is in set 1
+bool is_bipartite = true;
+queue<int> q;
+for (int st = 0; st < n; ++st) {
+    if (inSet[st] == -1) {
+        q.push(st);
+        inSet[st] = 0;
+        while (!q.empty()) {
+            int v = q.front();
+            q.pop();
+            forch(u,edg[v]) {
+                if (inSet[u] == -1) {
+                    inSet[u] = inSet[v] ^ 1;
+                    q.push(u);
+                } else {
+                    is_bipartite &= inSet[u] != inSet[v];
+                }
+            }
+        }
+    }
+}
+
+cout << (is_bipartite ? "YES" : "NO") << endl;
+
+
+
 
 
 void solve(){
