@@ -158,7 +158,6 @@ int lca_qu(int u,int v){
         if(is_ancestor(u,v)) return u;
         if(is_ancestor(v,u)) return v;
         for(int i=ht;i>=0;i--){
-            debug("lca_qu",i,u,up[u][i],v);
             if(!is_ancestor(up[u][i],v))
                 u=up[u][i];
         }
@@ -183,11 +182,6 @@ void solve(){
         edg[v].pb(u);
     }
     prepo(0);
-    rep(i,n){
-        rep(j,ht+1){
-            debug(i,j,up[i][j]);
-        }
-    }
     cout<<lca_qu(9,5)<<endl;
 
 }
