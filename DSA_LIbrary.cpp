@@ -1115,6 +1115,7 @@ void sieve(){
 
 //Smallest Prime Factor to find prime factor in O(nlognlogn) preprossesing and O(logn)
 
+vll Spf(maxx);
 void spf(){
     Spf[1]=1;
     rep1(i,1,maxx-1){
@@ -1134,6 +1135,23 @@ void spf(){
         }
     }
 }
+//Sum of Divisor using smallest prime factor
+ll sumOfDiv(int x){
+	ll d=1;
+	while (x != 1) {
+	     ll p = Spf[x];
+	     ll val=1;
+	     while (Spf[x] == p) {
+	         val*=Spf[x];
+	         x /= Spf[x];
+	     }
+     	val*=p;
+     	d*=(val-1);
+     	d/=(p-1);
+	}
+	return d;
+}
+
 
 
 
