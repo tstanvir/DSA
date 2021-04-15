@@ -107,30 +107,6 @@ ll lg2(ll x){
 }
 
 
-//inclusion-exclusion
-//how many numbers in 1 to m are divisable by a certain set of numbers a
-ll cnt(di a, ll m)
-{
-    int n=sz(a);
-    ll odd = 0, even = 0;
-    ll counter, i, j, p = 1;
-    ll pow_set_size = (1ll << n);
-    for (counter = 1; counter < pow_set_size; counter++) {
-        p = 1;
-        for (j = 0; j < n; j++) {
-            if (counter & (1ll << j)) {
-                p *= a[j];
-            }
-        }
-        if (__builtin_popcount(counter) & 1)
-            odd += (m / p);
-        else
-            even += (m / p);
-    }
-    return odd - even;
-}
-
-
 
 
 //manachar
