@@ -130,6 +130,25 @@ ll cnt(di a, ll m)
 
 
 
+//lexvalue("a") = 1, lexvalue("b") = 2, …, lexvalue("z") = 26,
+//lexvalue("aa") = 27, lexvalue("ab") = 28, …, lexvalue("az") = 52,
+//lexvalue("ba") = 53, lexvalue("bb") = 54, …, lexvalue("bz") = 78, …, 
+//lexvalue("za") = 677,lexvalue("zb") = 678, …, lexvalue("zz") = 702, 
+//lexvalue("aaa") = 703, lexvalue("aab") = 704, …, lexvalue("aaz") = 728, …, 
+//lexvalue("zzz") =18278, …
+//lexicogrpahical value
+//Number representation in base 26
+ll lexV(string s){
+    int n=sz(s);
+    ll res=0;
+    rep(i,n){
+        res=res*26+s[i]-'a'+1;
+    }
+    return res;
+}
+
+
+
 //manachar
 //manachar's
 //0-based indexing
