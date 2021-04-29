@@ -1123,6 +1123,8 @@ void bitmask(int n){
 
 
 //simple Sieve O(n*log(log(n)))
+//nt
+//numbertheory
 bool isp[maxx];
 vi primes;
 void sieve(){
