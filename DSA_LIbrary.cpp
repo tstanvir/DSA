@@ -105,6 +105,31 @@ ll lg2(ll x){
     }
     return res;
 }
+
+
+
+
+
+//all subarray traversing by expansion from the center of odd len subarray and 
+//even len subarray.O(n^2)
+//subarray
+//subsegment
+rep(oddCen,n){
+    for(int x=oddCen-1,y=oddCen+1;x>=0 and y<n;x--,y++){
+        //all subarray centered at oddCen one by one
+    }
+}
+rep(evenCen,n-1){
+    for(int x=evenCen,y=evenCen+1;x>=0 and y<n;x--,y++){
+        //all subarray centered at evenCen one by one
+    }
+}
+
+
+
+
+
+
 //inclusion-exclusion
 //how many numbers in 1 to m are divisable by a certain set of numbers a
 ll cnt(di a, ll m)
