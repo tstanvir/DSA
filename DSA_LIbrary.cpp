@@ -105,6 +105,29 @@ ll lg2(ll x){
     }
     return res;
 }
+//1 2 4 7
+//3 5 8 12
+//6 9 13 18
+//10 14 19 25
+//constructing above matrix.
+//matrix construction
+int matrix[1005][1005];
+void infiniteMatrix()
+{   
+    for(int i = 1;  i <= 1000;  i++)
+    {
+        matrix[i][1] = i * (i+1)/2;
+        for(int j = 2;  j <= 1000;  j++)
+        {
+            matrix[i][j] = matrix[i][j-1] + (j - 1) + (i - 1);
+        }
+    }
+}
+
+
+
+
+
 //inclusion-exclusion
 //how many numbers in 1 to m are divisable by a certain set of numbers a
 ll cnt(di a, ll m)
