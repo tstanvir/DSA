@@ -120,10 +120,9 @@ bool sortinrev(const pair<int,int> &a,const pair<int,int> &b)
     return a.first>b.first;
 }
 int cs=0;
-void s1(vector <string> &a) {
+
+void rotate90rev(vector <string> &a) {
 	for (auto &x : a) reverse(x.begin(), x.end());
-}
-void s2(vector <string> &a) {
 	int n = a.size();
 	for (int i = 0; i < n; ++i)
 		 for (int j = i + 1; j < n; ++j) swap(a[i][j], a[j][i]);
@@ -141,8 +140,7 @@ void solve(){
 	.....
 	.....
 	*/
-    s1(a);
-    s2(a);
+    rotate90rev(a);
     forch(it,a){
     	cout<<it<<endl;
     }
@@ -154,8 +152,7 @@ void solve(){
 	..#..
 	.....
 	*/
-    s1(a);
-    s2(a);
+    rotate90rev(a);
     forch(it,a){
     	cout<<it<<endl;
     }
@@ -166,8 +163,7 @@ void solve(){
 	..#..
 	.....
 	*/
-	s1(a);
-    s2(a);
+	rotate90rev(a);
     forch(it,a){
     	cout<<it<<endl;
     }
