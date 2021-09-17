@@ -1230,6 +1230,7 @@ void init(){
     }
 }
 ll ncr(ll n,ll k){
+	if(n<0 or k<0 or n<k) return 0;
     if(k==0 || n-k==0) return 1;
     ll res=fact[n];
     //cout<<n<<" "<<fact[n]<<endl;
@@ -1253,8 +1254,7 @@ void init(){
     }
 }
 ll ncr(ll n,ll k){
-    if(n<0 or k<0) return 0;
-    if(n<k) return 0;
+    if(n<0 or k<0 or n<k) return 0;
     ll res=fact[n];
     //cout<<n<<" "<<fact[n]<<endl;
     ll denom=(inv[k]*inv[n-k])%MOD;
