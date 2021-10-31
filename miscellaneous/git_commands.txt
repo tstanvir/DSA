@@ -34,3 +34,4 @@
 32. git checkout -b <branch name> : to create a new branch to push into an open source project.
 33. git branch -D BRANCH_NAME : to delete specific branch.
 34. git branch : to see the branches.
+35. https://www.dataschool.io/how-to-contribute-on-github/
