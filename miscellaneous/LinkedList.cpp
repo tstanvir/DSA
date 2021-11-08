@@ -105,6 +105,7 @@ void reverseList(){
 	head=prev;
 }*/
 void reverseList(Node* cur,Node** head_ref){
+	if(cur==NULL) return;
 	if(cur->next==NULL){
 		*head_ref=cur;
 		return;
@@ -139,18 +140,14 @@ int Size(Node* cur){
 int main(){ 
 	int tot=0;
 	Node* head=NULL;
-	head=insertInto(3,1,tot,head);
-	insertInto(18,2,tot,head);
-	insertInto(98,3,tot,head);
-	insertInto(4,4,tot,head);
-	insertInto(12,5,tot,head);
+	// head=insertInto(3,1,tot,head);
+	// head=insertInto(18,2,tot,head);
+	// head=insertInto(98,3,tot,head);
+	// head=insertInto(4,4,tot,head);
+	// head=insertInto(12,5,tot,head);
 	cout<<Size(head)<<endl;
 	print(head);
-	// head=deleteAt(2,tot,head);
-	// print(head);
-	// reverseList(head,&head);
+	reverseList(head,&head);
 	print(head);
-	Free(&head);
-	cout<<Size(head)<<endl;
 	return 0;
 }
