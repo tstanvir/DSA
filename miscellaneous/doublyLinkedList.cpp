@@ -19,14 +19,17 @@ class DLinkedList{
 			this->prev=NULL;
 		}
 	};
+	
+public:
 	Node* head;
 	Node* tail;
-public:
 	DLinkedList(){head=NULL;}
 	void insertAtHead(int x);
 	void insertAtTail(int x);
 	void print();
 	void reversePrint();
+	void reverseIterative();
+	void reverseRecursive(Node* cur);
 	int size();
 };
 
@@ -82,14 +85,42 @@ int DLinkedList::size(){
 	}
 	return cnt;
 }
+void DLinkedList::reverseIterative(){
+	Node* cur=head;
+	while(cur!=NULL){
+		Node* prev=cur->prev;
+		cur->prev=cur->next;
+		cur->next=prev;
+
+		head=cur;
+
+		cur=cur->prev;
+	}
+}
+void DLinkedList::reverseRecursive(Node* cur){
+	if(cur==NULL) return;
+	if(cur->next==NULL){
+		head=cur;
+		return;
+	}
+	reverseRecursive(cur->next);
+	Node* nextWas=cur->next;
+	cur->prev=nextWas;
+	cur->next=NULL;
+	nextWas->prev=nextWas->next;
+	nextWas->next=cur;
+}
 int main(){
 	DLinkedList list;
-	list.insertAtHead(2);
-	list.insertAtHead(5);
-	list.insertAtTail(3);
+	list.insertAtTail(2);
+	list.insertAtTail(1);
 	list.insertAtTail(6);
+	list.insertAtTail(14);
+	list.insertAtTail(23);
+	list.insertAtTail(6134);
 	cout<<list.size()<<endl;
 	list.print();
-	list.reversePrint();
+	list.reverseRecursive(list.head);
+	list.print();
 	return 0;
 }
