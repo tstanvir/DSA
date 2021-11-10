@@ -140,11 +140,11 @@ int Size(Node* cur){
 int main(){ 
 	int tot=0;
 	Node* head=NULL;
-	// head=insertInto(3,1,tot,head);
-	// head=insertInto(18,2,tot,head);
-	// head=insertInto(98,3,tot,head);
-	// head=insertInto(4,4,tot,head);
-	// head=insertInto(12,5,tot,head);
+	head=insertInto(3,1,tot,head);
+	head=insertInto(18,2,tot,head);
+	head=insertInto(98,3,tot,head);
+	head=insertInto(4,4,tot,head);
+	head=insertInto(12,5,tot,head);
 	cout<<Size(head)<<endl;
 	print(head);
 	reverseList(head,&head);
